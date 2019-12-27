@@ -1,8 +1,23 @@
 # Changer
 
-Changer is linux-based anti-forensics tool for reading, extracting, modifying and destroying selected information from files, partitions and whole disks using gained byte offsets from commands like grep. Basically, it's srm but on manual scale with surgical precision and bunch of other things.
+Changer is linux-based (anti-)forensics tool for reading, extracting, modifying and securely deleting precisely selected either indexed or deleted data from files or whole disks using. Basically, it's srm (secure_delete) but on manuallly defined scale with surgical precision and bunch of other options.
 
 ## Dev status: `buggy, but rollin'`
+
+## Intro into subject
+Privacy is one of biggest issues in modern world. Deleted data is not deleted, it is hiding somewhere, waiting to be recovered by someone seeking it.
+
+No matter if you're just a privacy freak like me, or desperate gov whistleblower. You will want to cover your tracks. Any documents that you deleted via regular `Trash Bin` is and will be, easily recoverable.
+
+Even so called "[Data sanitization guidelines](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf)" [fail to make data unrecoverable](https://www.cl.cam.ac.uk/~sps32/DataRem_CHES2005.pdf), if attacker one has enough time and some really expensive tools at his disposal.
+
+So, why not at least make it harder and more expensive for attacker to recover data?
+
+This software enables it's user, after he had located either indexed or deleted data on disk using tools like `grep`, to recover it, extract it, modify it or destroy it - make it [almost](https://www.cl.cam.ac.uk/~sps32/DataRem_CHES2005.pdf) unrecoverable.
+
+It might be [overkill for SSDs](https://security.stackexchange.com/questions/10464/why-is-writing-zeros-or-random-data-over-a-hard-drive-multiple-times-better-th) but in this project I use [Gutmann method](https://en.wikipedia.org/wiki/Gutmann_method) for making data unrecoverable. It includes 35 steps - different overwrites of specified data. And internal scrambling of steps using [pRNG Mersenne Twister](https://en.wikipedia.org/wiki/Mersenne_Twister). And then, speaking of overkills, optionally fills it with infinitely recurring Lorem Ipsum string.
+
+Problem of reallocated sectors by disk itself, which is big issue in this field, is not addressed here.
 
 ## Installation
 
@@ -19,11 +34,13 @@ P.S. My compailer spec:
     Thread model: posix
     gcc version 9.2.0 (GCC) 
 
-## Options:
+## Options - help output:
 
     Usage: changer [OPTION...] MEM_OFFSET_LIST (Format: "INT INT INT INT...")
-    changer -- A linux-based anti-forensics tool for reading, extracting, modifying
-    and destroying data from files.
+    Changer is linux-based (anti-)forensics tool for reading, extracting, modifying
+    and securely deleting precisely selected either indexed or deleted data from
+    files or whole disks using. Basically, it's srm (secure_delete) but on
+    manuallly defined scale with surgical precision and bunch of other options.
 
     -b, --buffer-size=INT      Define read/write buffer size. Default value: 42.
     -d, --destroy-data         Destroy data indexed with offsets and buffer size.
@@ -89,7 +106,7 @@ Lets see progression of piping, lets break down the command:
         I Lorem i dalje. 
 
 ## Whole partition example
-Lets say that you know (or suspect) that somewhere on your HDD or SSH there is forgotten and lost sensitive data, and that you want to get rid of it, but not destroy the disk or wipe it using existing tools. This is how to do so:
+Lets say that you know (or suspect) that somewhere on your HDD or SSH there is forgotten and lost sensitive data, and that you want to get rid of it (make it unrecoverable), but not destroy the disk itself or wipe it clean using existing tools. This is how to do so:
 1. First of try to remember some part of it, and run grep and sed like this:
         
         grep -b -i -a 'sensitive data fragment' /dev/sdX | sed 's/:.*/ /g' > out.txt
@@ -123,10 +140,25 @@ On Arch Linux one needs to:
   2. Use space before command and it will never be logged into `zsh.history` file
 
 - Better solution will be to run all those programs from Live OS, to even hide the fact that you had this peace of software on your machine. 
-- And the best solution will be to [melt your HDD/SSH in manetic flux](https://www.backyardscient.ist/induction-heater).
+
 
 In case one has sensitive information already stored somewhere but not deleted, use [Van Hauser of THC's](https://github.com/vanhauser-thc) secure-delete package with command:
     - `sudo srm -vzr file_name_or_folder`
+
+## Outro
+
+In the end. No data is save on any medium - if it is in hands of and attacker.
+
+Using some techniques of secure deletion data can get safer than not using any at all. Even with encryption, attacker might use 'advanced' Rubber-hose cryptanalysis called "[lead pipe](https://xkcd.com/538/)".
+
+This software gives provides "good-enough" solution when user wants to wipe desired fragment of information from disk but doesn't want or can't wipe whole disk clean and physically destroy it.
+
+Regarding problem of reallocated sectors i will [quote user from stackexchange.com:
+
+> "In the end, it's a question of "what data" you want to "protect" by erasing it, and how important it is that the erased data will be unrecoverable in any potential case. Let's put it this way: if you want to delete your personal dairy, you probably don't need to overwrite each and every free sector... but if you're working on plans for a nuclear power plant or some "secret project" for your government, you'll not want to let a single byte as is." 
+> ~user6373 on stackexchange.com
+
+Anyhow best "secure deletion" of data is to [melt your HDD/SSH in manetic flux](https://www.backyardscient.ist/induction-heater).
 
 ## Refs:
   - [Takkat on askubuntu.com](https://askubuntu.com/a/57580)
@@ -137,9 +169,14 @@ In case one has sensitive information already stored somewhere but not deleted, 
   - [On multiple overwritting passes](https://security.stackexchange.com/questions/10464/why-is-writing-zeros-or-random-data-over-a-hard-drive-multiple-times-better-th)
   - [Secure Deletion of Data from Magnetic and Solid-State Memory](https://www.cs.auckland.ac.nz/~pgut001/pubs/secure_del.html)
   - [Data Remanence in Flash Memory Devices](https://www.cl.cam.ac.uk/~sps32/DataRem_CHES2005.pdf)
+  - [Overwriting Hard Drive Data: The Great Wiping Controversy](https://www.vidarholen.net/~vidar/overwriting_hard_drive_data.pdf)
   - [Gutmann method](https://en.wikipedia.org/wiki/Gutmann_method)
   - [srm manual](http://srm.sourceforge.net/srm.html)
   - [NIST 800-88 - Guidelines for Media Sanitization](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf)
   - [DoD 5220.22-M Wiping Standard](https://www.blancco.com/blog-dod-5220-22-m-wiping-standard-method/)
   - [Mersenne Twister](https://en.wikipedia.org/wiki/Mersenne_Twister) 
   - [Mersenne Twister in C by Takuji Nishimura](http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/VERSIONS/C-LANG/deifik.c)
+
+
+## License
+Changer is [MIT licensed](https://en.wikipedia.org/wiki/MIT_License).

@@ -1,10 +1,10 @@
 
-/*  Changer is linux-based anti-forensics tool for reading,      */
-/*  extracting, modifying and destroying selected                */ 
-/*  information from files, partitions and whole disks           */ 
-/*  using gained byte offsets from commands like grep.           */ 
-/*  Basically, it's srm but on manual scale with surgical        */
-/*  precision and bunch of other things.                         */
+/*  Changer is linux-based (anti-)forensics tool for reading,    */
+/*  extracting, modifying and securely deleting precisely        */
+/*  selected either indexed or deleted data from files or whole  */
+/*  disks using. Basically, it's srm (secure_delete) but on      */
+/*  manuallly defined scale with surgical precision and bunch of */
+/*  other options.                                               */
 /*  Coded by Lazar Marković for no special reason.               */                         
 
 /*  This code is free; you can redistribute it and/or            */
@@ -245,14 +245,20 @@ parse_opt (int key, char *arg, struct argp_state *state)
    A description of the non-option command-line arguments
      that we accept.
 */
-static char args_doc[] = "MEM_OFFSET_LIST (Format: \"INT INT INT INT...\")";
+static char args_doc[] = 
+"MEM_OFFSET_LIST (Format: \"INT INT INT INT...\")";
 
 /*
   DOC.  Field 4 in ARGP.
   Program documentation.
 */
 static char doc[] =
-"changer -- A linux-based anti-forensics tool for reading, extracting, modifying and destroying data from files.\vFrom Lazar Markovic.";
+"Changer is linux-based (anti-)forensics tool for \
+reading, extracting, modifying and securely deleting \
+precisely selected either indexed or deleted data from \
+files or whole disks using. Basically, it's srm (secure_delete) \
+but on manuallly defined scale with surgical precision and bunch \
+of other options.\vFrom Lazar Markovic.";
 
 /*
    The ARGP structure itself.
