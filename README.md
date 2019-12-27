@@ -185,4 +185,4 @@ Anyhow best "secure deletion" of data is to [melt your HDD/SSH in magnetic flux]
 - Address reallocated sectors problem
 
 ## License
-Changer is [MIT licensed].(https://en.wikipedia.org/wiki/MIT_License).
+Changer is [MIT licensed](https://en.wikipedia.org/wiki/MIT_License).
