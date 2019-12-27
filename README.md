@@ -39,8 +39,8 @@ P.S. My compailer spec:
     Usage: changer [OPTION...] MEM_OFFSET_LIST (Format: "INT INT INT INT...")
     Changer is linux-based (anti-)forensics tool for reading, extracting, modifying
     and securely deleting precisely selected either indexed or deleted data from
-    files or whole disks using. Basically, it's srm (secure_delete) but on
-    manually defined scale with surgical precision and bunch of other options.
+    files or whole disks. Basically, it's srm (secure_delete) but on manually
+    defined scale with surgical precision and bunch of other options.
 
     -b, --buffer-size=INT      Define read/write buffer size. Default value: 42.
     -d, --destroy-data         Destroy data indexed with offsets and buffer size.
