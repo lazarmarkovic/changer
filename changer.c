@@ -256,7 +256,7 @@ static char doc[] =
 "Changer is linux-based (anti-)forensics tool for \
 reading, extracting, modifying and securely deleting \
 precisely selected either indexed or deleted data from \
-files or whole disks using. Basically, it's srm (secure_delete) \
+files or whole disks. Basically, it's srm (secure_delete) \
 but on manually defined scale with surgical precision and bunch \
 of other options.\vFrom Lazar Markovic.";
 
