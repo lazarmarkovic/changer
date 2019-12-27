@@ -153,7 +153,7 @@ Using some techniques of secure deletion data can get safer than not using any a
 
 This software gives provides "good-enough" solution when user wants to wipe desired fragment of information from disk but doesn't want or can't wipe whole disk clean and physically destroy it.
 
-Regarding problem of reallocated sectors i will [quote user from stackexchange.com:
+Regarding problem of reallocated sectors and level of protection, I will [quote user from stackexchange.com:
 
 > "In the end, it's a question of "what data" you want to "protect" by erasing it, and how important it is that the erased data will be unrecoverable in any potential case. Let's put it this way: if you want to delete your personal dairy, you probably don't need to overwrite each and every free sector... but if you're working on plans for a nuclear power plant or some "secret project" for your government, you'll not want to let a single byte as is." 
 > ~user6373 on stackexchange.com
@@ -177,6 +177,12 @@ Anyhow best "secure deletion" of data is to [melt your HDD/SSH in magnetic flux]
   - [Mersenne Twister](https://en.wikipedia.org/wiki/Mersenne_Twister) 
   - [Mersenne Twister in C by Takuji Nishimura](http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/VERSIONS/C-LANG/deifik.c)
 
+## TOTO
+
+- Make package and publish it on APT and pacman
+- Write more about subject in this file
+- Elaborate the mention of machine learning usage in covering tracks of secure delition usage
+- Address reallocated sectors problem
 
 ## License
 Changer is [MIT licensed].(https://en.wikipedia.org/wiki/MIT_License).
