@@ -3,7 +3,7 @@
 /*  extracting, modifying and securely deleting precisely        */
 /*  selected either indexed or deleted data from files or whole  */
 /*  disks using. Basically, it's srm (secure_delete) but on      */
-/*  manuallly defined scale with surgical precision and bunch of */
+/*  manually defined scale with surgical precision and bunch of  */
 /*  other options.                                               */
 /*  Coded by Lazar Marković for no special reason.               */                         
 
@@ -129,7 +129,7 @@ void shuffle(int aa[], int n)
     }
 }
 
-/* Print operation message if verbrose mode is on */
+/* Print operation message if verbose mode is turned on */
 int print_text(char *message, int print) {
     if (print) {
         printf("%s", message);
@@ -257,7 +257,7 @@ static char doc[] =
 reading, extracting, modifying and securely deleting \
 precisely selected either indexed or deleted data from \
 files or whole disks using. Basically, it's srm (secure_delete) \
-but on manuallly defined scale with surgical precision and bunch \
+but on manually defined scale with surgical precision and bunch \
 of other options.\vFrom Lazar Markovic.";
 
 /*

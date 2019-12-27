@@ -1,6 +1,6 @@
 # Changer
 
-Changer is linux-based (anti-)forensics tool for reading, extracting, modifying and securely deleting precisely selected either indexed or deleted data from files or whole disks using. Basically, it's srm (secure_delete) but on manuallly defined scale with surgical precision and bunch of other options.
+Changer is linux-based (anti-)forensics tool for reading, extracting, modifying and securely deleting precisely selected either indexed or deleted data from files or whole disks using. Basically, it's srm (secure_delete) but on manually defined scale with surgical precision and bunch of other options.
 
 ## Dev status: `buggy, but rollin'`
 
@@ -40,7 +40,7 @@ P.S. My compailer spec:
     Changer is linux-based (anti-)forensics tool for reading, extracting, modifying
     and securely deleting precisely selected either indexed or deleted data from
     files or whole disks using. Basically, it's srm (secure_delete) but on
-    manuallly defined scale with surgical precision and bunch of other options.
+    manually defined scale with surgical precision and bunch of other options.
 
     -b, --buffer-size=INT      Define read/write buffer size. Default value: 42.
     -d, --destroy-data         Destroy data indexed with offsets and buffer size.
@@ -80,7 +80,7 @@ We will conceive following command:
 WTF.. is this?
 
 Lets see progression of piping, lets break down the command:
-1. `grep` command searches for all occurrences of fragment '111' in given file `test` and returns list of byte offsets in relation to the beggining of file:
+1. `grep` command searches for all occurrences of fragment '111' in given file `test` and returns list of byte offsets in relation to the beginning of file:
 
         9:111
         24:111
@@ -100,22 +100,22 @@ Lets see progression of piping, lets break down the command:
        
         9 24 36 47 61 75
 
-4. `changer`, finnaly, takes offsets from xargs, takes input file `test`, we set buffer size `-b` to 7 (number of characters to be destroyed starting from offfset position) and use `-d` command to destroy - to overwrite data [35 times with gibberish](https://en.wikipedia.org/wiki/Gutmann_method) and then '-l' to overwrite with dumb Lorem Ipsum (yes, it's stupid idea, but random numbers/values are no better -> machine learning is needed here -> there's work to be done here in future, to mask usage of program itself). And resulting file is:
+4. `changer`, finally, takes offsets from `xargs`, takes input file `test`, we set buffer size `-b` to 7 (number of characters to be destroyed starting from offset position) and use `-d` command to destroy - to overwrite data [35 times with gibberish](https://en.wikipedia.org/wiki/Gutmann_method) and then '-l' to overwrite with dumb Lorem Ipsum (yes, it's stupid idea, but random numbers/values are no better -> machine learning is needed here -> there's work to be done here in future, to mask usage of program itself). And resulting file is:
 
         Danas je Lorem isen dan Lorem ie je Lorem i, a Lorem ilju je Lorem idno.
         I Lorem i dalje. 
 
-## Whole partition example
+## Whole disk/partition example
 Lets say that you know (or suspect) that somewhere on your HDD or SSH there is forgotten and lost sensitive data, and that you want to get rid of it (make it unrecoverable), but not destroy the disk itself or wipe it clean using existing tools. This is how to do so:
-1. First of try to remember some part of it, and run grep and sed like this:
+1. First of try to remember some part of it, and run `grep` and `sed` like this:
         
         grep -b -i -a 'sensitive data fragment' /dev/sdX | sed 's/:.*/ /g' > out.txt
 
-2. Command above might take a while to complete, depends on HDD/SSD rw speed and partition size. Now lets import data to the changer and review occurrences in order to find buffer size (repeat command untill we see all of sensitive data in frame between '->' and '<-' outputs - works only in verbrose `-v` mode):
+2. Command above might take a while to complete, depends on HDD/SSD rw speed and partition size. Now lets import data to the changer and review occurrences in order to find buffer size (repeat command until we see all of sensitive data in frame between '->' and '<-' outputs - works only in verbose `-v` mode):
     
         cat out.txt | xargs | ./changer -i test -v -b some_buffer_size -r
 
-3. And finally when we come up with buffer size - we destroy every occurrence of sensitive data on disk:
+3. And until when we come up with buffer size - we destroy every occurrence of sensitive data on disk:
 
         cat out.txt | xargs | ./changer -i test -v -b final_buffer_size -d
 
@@ -128,7 +128,7 @@ Lets say that you know (or suspect) that somewhere on your HDD or SSH there is f
 ## Little anti-forensic manual and some notes
 If one wants to conceal execution of those commands (on Liux).
 One needs to temporarily disable system logging and bash/zsh command history logging.
-On Arch Linux one needs to:
+On Arch based Linux distros one needs to:
 
 - Temporarily disable physical logging:
   1. Go to `/etc/systemd/journald.conf` , uncomment `Storage=auto` and set to `Storage=none`
@@ -158,7 +158,7 @@ Regarding problem of reallocated sectors i will [quote user from stackexchange.c
 > "In the end, it's a question of "what data" you want to "protect" by erasing it, and how important it is that the erased data will be unrecoverable in any potential case. Let's put it this way: if you want to delete your personal dairy, you probably don't need to overwrite each and every free sector... but if you're working on plans for a nuclear power plant or some "secret project" for your government, you'll not want to let a single byte as is." 
 > ~user6373 on stackexchange.com
 
-Anyhow best "secure deletion" of data is to [melt your HDD/SSH in manetic flux](https://www.backyardscient.ist/induction-heater).
+Anyhow best "secure deletion" of data is to [melt your HDD/SSH in magnetic flux](https://www.backyardscient.ist/induction-heater).
 
 ## Refs:
   - [Takkat on askubuntu.com](https://askubuntu.com/a/57580)
@@ -179,4 +179,4 @@ Anyhow best "secure deletion" of data is to [melt your HDD/SSH in manetic flux](
 
 
 ## License
-Changer is [MIT licensed](https://en.wikipedia.org/wiki/MIT_License).
+Changer is [MIT licensed].(https://en.wikipedia.org/wiki/MIT_License).
