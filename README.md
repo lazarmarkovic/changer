@@ -177,7 +177,7 @@ Anyhow best "secure deletion" of data is to [melt your HDD/SSH in magnetic flux]
   - [Mersenne Twister](https://en.wikipedia.org/wiki/Mersenne_Twister) 
   - [Mersenne Twister in C by Takuji Nishimura](http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/VERSIONS/C-LANG/deifik.c)
 
-## TOTO
+## TODO
 
 - Make package and publish it on APT and pacman
 - Write more about subject in this file
