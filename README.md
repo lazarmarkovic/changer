@@ -147,7 +147,7 @@ In case one has sensitive information already stored somewhere but not deleted, 
 
 ## Outro
 
-In the end. No data is save on any medium - if it is in hands of and attacker.
+In the end. No data is safe on any medium - if it is in hands of and attacker.
 
 Using some techniques of secure deletion data can get safer than not using any at all. Even with encryption, attacker might use 'advanced' Rubber-hose cryptanalysis called "[lead pipe](https://xkcd.com/538/)".
 
